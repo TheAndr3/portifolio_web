@@ -1,59 +1,73 @@
-# André Vinícius - Personal Portfolio                                                                                                                                       │
- │     2 +                                                                                                                                                                             │
- │     3 + This is the repository for my personal portfolio website, showcasing my skills, projects, and contact information.                                                          │
- │     4 +                                                                                                                                                                             │
- │     5 + ## About The Project                                                                                                                                                        │
- │     6 +                                                                                                                                                                             │
- │     7 + This portfolio is a single-page application built with Next.js and Tailwind CSS, designed to be a clean and simple way for visitors to learn about my work.                 │
- │     8 +                                                                                                                                                                             │
- │     9 + ### Built With                                                                                                                                                              │
- │    10 +                                                                                                                                                                             │
- │    11 + *   [Next.js](https://nextjs.org/) - React framework for production                                                                                                         │
- │    12 + *   [React](https://reactjs.org/) - A JavaScript library for building user interfaces                                                                                       │
- │    13 + *   [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework                                                                                                │
- │    14 + *   [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript at scale                                                                                               │
- │    15 +                                                                                                                                                                             │
- │    16 + ## Getting Started                                                                                                                                                          │
- │    17 +                                                                                                                                                                             │
- │    18 + To get a local copy up and running, follow these simple steps.                                                                                                              │
- │    19 +                                                                                                                                                                             │
- │    20 + ### Prerequisites                                                                                                                                                           │
- │    21 +                                                                                                                                                                             │
- │    22 + Make sure you have Node.js and npm (or yarn) installed on your machine.                                                                                                     │
- │    23 +                                                                                                                                                                             │
- │    24 + *   npm                                                                                                                                                                     │
- │    25 +     ```sh                                                                                                                                                                   │
- │    26 +     npm install npm@latest -g                                                                                                                                               │
- │    27 +     ```                                                                                                                                                                     │
- │    28 +                                                                                                                                                                             │
- │    29 + ### Installation                                                                                                                                                            │
- │    30 +                                                                                                                                                                             │
- │    31 + 1.  Clone the repo                                                                                                                                                          │
- │    32 +     ```sh                                                                                                                                                                   │
- │    33 +     git clone https://github.com/TheAndr3/portifolio_web.git                                                                                                                │
- │    34 +     ```                                                                                                                                                                     │
- │    35 + 2.  Navigate to the frontend directory                                                                                                                                      │
- │    36 +     ```sh                                                                                                                                                                   │
- │    37 +     cd portifolio_web/frontend                                                                                                                                              │
- │    38 +     ```                                                                                                                                                                     │
- │    39 + 3.  Install NPM packages                                                                                                                                                    │
- │    40 +     ```sh                                                                                                                                                                   │
- │    41 +     npm install                                                                                                                                                             │
- │    42 +     ```                                                                                                                                                                     │
- │    43 + 4.  Run the development server                                                                                                                                              │
- │    44 +     ```sh                                                                                                                                                                   │
- │    45 +     npm run dev                                                                                                                                                             │
- │    46 +     ```                                                                                                                                                                     │
- │    47 +                                                                                                                                                                             │
- │    48 + Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.                                                                                    │
- │    49 +                                                                                                                                                                             │
- │    50 + ## Deployment                                                                                                                                                               │
- │    51 +                                                                                                                                                                             │
- │    52 + This project is configured for easy deployment on [Vercel](https://vercel.com/).                                                                                            │
- │    53 +                                                                                                                                                                             │
- │    54 + **Important:** When deploying to Vercel, make sure to set the **Root Directory** to `frontend` in your project settings. This will ensure that Vercel correctly identifies  │
- │       the Next.js application and its dependencies.                                                                                                                                 │
- │    55 +                                                                                                                                                                             │
- │    56 + ## License                                                                                                                                                                  │
- │    57 +                                                                                                                                                                             │
- │    58 + Distributed under the MIT License. See `LICENSE` for more information.     
+# André Vinícius - Portfólio Pessoal
+
+![Licença](https://img.shields.io/badge/license-MIT-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+> Este é o repositório do meu portfólio pessoal, um lugar para exibir minhas habilidades, projetos e informações de contato.
+
+**[➡️ Acesse a versão ao vivo aqui!](https://deds-portifolio.vercel.app/)**
+
+---
+
+## 📜 Sumário
+
+* [Sobre o Projeto](#-sobre-o-projeto)
+  * [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+* [Como Começar](#-como-começar)
+  * [Pré-requisitos](#-pré-requisitos)
+  * [Instalação](#-instalação)
+* [Uso](#-uso)
+* [Deploy](#-deploy)
+* [Licença](#-licença)
+* [Contato](#-contato)
+
+---
+
+## 🚀 Sobre o Projeto
+
+Este portfólio é uma aplicação de página única (SPA) construída com Next.js e estilizada com Tailwind CSS. Foi projetado para ser uma forma limpa e objetiva para os visitantes conhecerem meu trabalho e entrarem em contato.
+
+### ✨ Tecnologias Utilizadas
+
+* **[Next.js](https://nextjs.org/)**: Framework React para produção.
+* **[React](https://reactjs.org/)**: Biblioteca JavaScript para criar interfaces de usuário.
+* **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS utility-first.
+* **[TypeScript](https://www.typescriptlang.org/)**: JavaScript com tipagem estática.
+* **[Vercel](https://vercel.com/)**: Plataforma de deploy.
+
+---
+
+## 🏁 Como Começar
+
+Para obter uma cópia local e executá-la, siga estes passos simples.
+
+### ✅ Pré-requisitos
+
+Certifique-se de ter o Node.js (versão 18.17 ou superior) instalado em sua máquina.
+* Você pode baixar o Node.js [aqui](https://nodejs.org/).
+
+### 🛠️ Instalação
+
+1.  Clone o repositório:
+    ```sh
+    git clone [https://github.com/TheAndr3/portifolio_web.git](https://github.com/TheAndr3/portifolio_web.git)
+    ```
+2.  Navegue até a pasta do projeto:
+    ```sh
+    cd portifolio_web
+    ```
+3.  Instale as dependências NPM:
+    ```sh
+    npm install
+    ```
+
+---
+
+## ▶️ Uso
+
+Para iniciar o servidor de desenvolvimento, execute o comando:
+
+```sh
+npm run dev
