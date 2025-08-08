@@ -39,6 +39,16 @@ export default function Component() {
           ))}
         </div>
 
+        {/* About Me */}
+        <div className="text-center text-gray-400 space-y-4 pt-6">
+          <p className="text-base sm:text-lg">
+            Estudante de Engenharia de Computação apaixonado por inovação e projetos. Participei da 13ª edição da Campus Mobile, desenvolvendo soluções que conectam tecnologia e impacto positivo.
+          </p>
+          <a href="mailto:andrevinciusdiz@gmail.com" className="inline-block text-white hover:text-gray-300 transition-colors duration-200">
+            andrevinciusdiz@gmail.com
+          </a>
+        </div>
+
         {/* Footer spacing for mobile */}
         <div className="h-4 sm:h-6 lg:h-8" />
       </div>
