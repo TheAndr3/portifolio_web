@@ -71,3 +71,4 @@ Para iniciar o servidor de desenvolvimento, execute o comando:
 
 ```sh
 npm run dev
+```
