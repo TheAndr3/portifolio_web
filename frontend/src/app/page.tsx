@@ -4,9 +4,9 @@ import { ExternalLink } from 'lucide-react'
 export default function Component() {
   const links = [
     { name: "LinkedIn", href: "https://www.linkedin.com/in/theandr3/" },
-    { name: "YouTube", href: "https://www.youtube.com/@andrevinicius2c887" },
     { name: "GitHub", href: "https://github.com/TheAndr3" },
     { name: "Dev.to", href: "https://dev.to/theandr3" },
+    { name: "YouTube", href: "https://www.youtube.com/@andrevinicius2c887" },
     { name: "Download my CV", href: "https://drive.google.com/file/d/14Nn1CNV7VewnKWf_Ls89fpTyIMfkR4-X/view" },
   ]
 
