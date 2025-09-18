@@ -7,7 +7,7 @@ export default function Component() {
     { name: "GitHub", href: "https://github.com/TheAndr3" },
     { name: "Dev.to", href: "https://dev.to/theandr3" },
     { name: "YouTube", href: "https://www.youtube.com/@andrevinicius2c887" },
-    { name: "Download my CV", href: "https://drive.google.com/file/d/14Nn1CNV7VewnKWf_Ls89fpTyIMfkR4-X/view" },
+    { name: "Download my CV", href: "https://drive.google.com/file/d/1GE1HxBg7vrRKF0yfmuAsUSUoJ0B90HTl/view?usp=sharing" },
   ]
 
   return (
