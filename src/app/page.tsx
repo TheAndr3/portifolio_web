@@ -42,7 +42,7 @@ export default function Component() {
         {/* About Me */}
         <div className="text-center text-gray-400 space-y-4 pt-6">
           <p className="text-base sm:text-lg">
-            Estudante de Engenharia de Computação apaixonado por inovação e projetos. Participei da 13ª edição da Campus Mobile, desenvolvendo soluções que conectam tecnologia e impacto positivo.
+            A Computer Engineering student with a passion for innovation and projects. I was a participant in the 13th Campus Mobile competition, where I developed solutions that bridge technology with positive impact.
           </p>
           <a href="mailto:andrevinciusdiz@gmail.com" className="inline-block text-white hover:text-gray-300 transition-colors duration-200">
             andrevinciusdiz@gmail.com
