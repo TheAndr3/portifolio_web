@@ -11,14 +11,14 @@ export default function Component() {
   ]
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl space-y-6 sm:space-y-8 lg:space-y-10">
         {/* Header */}
         <div className="text-center space-y-2 sm:space-y-3 lg:space-y-4">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
             André Vinícius  
           </h1>
-          <p className="text-gray-400 text-base sm:text-lg lg:text-xl xl:text-2xl">
+          <p className="text-muted-foreground text-base sm:text-lg lg:text-xl xl:text-2xl">
             Software Engineer
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function Component() {
             <Link
               key={index}
               href={link.href}
-              className="flex items-center justify-between w-full px-4 py-3 sm:px-6 sm:py-4 lg:px-8 lg:py-5 text-white border border-gray-600 rounded-lg sm:rounded-xl hover:border-gray-400 hover:bg-gray-900/20 transition-all duration-200 group touch-manipulation"
+              className="flex items-center justify-between w-full px-4 py-3 sm:px-6 sm:py-4 lg:px-8 lg:py-5 text-foreground border border-border rounded-lg sm:rounded-xl hover:border-foreground/50 hover:bg-accent transition-all duration-200 group touch-manipulation"
             >
               <span className="text-sm sm:text-base lg:text-lg xl:text-xl font-medium">
                 {link.name}
@@ -40,11 +40,11 @@ export default function Component() {
         </div>
 
         {/* About Me */}
-        <div className="text-center text-gray-400 space-y-4 pt-6">
+        <div className="text-center text-muted-foreground space-y-4 pt-6">
           <p className="text-base sm:text-lg">
             A Computer Engineering student with a passion for innovation and projects. I was a participant in the 13th Campus Mobile competition, where I developed solutions that bridge technology with positive impact.
           </p>
-          <a href="mailto:andrevinciusdiz@gmail.com" className="inline-block text-white hover:text-gray-300 transition-colors duration-200">
+          <a href="mailto:andrevinciusdiz@gmail.com" className="inline-block text-foreground hover:text-muted-foreground transition-colors duration-200">
             andrevinciusdiz@gmail.com
           </a>
         </div>
