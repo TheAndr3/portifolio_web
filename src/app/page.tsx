@@ -8,15 +8,15 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-background text-foreground px-6 py-12 md:py-20 lg:px-24">
+    <main className="min-h-screen bg-background text-foreground px-4 py-12 md:py-20 lg:px-24">
       {/* Container Principal */}
       <div className="max-w-4xl mx-auto space-y-16">
         
         {/* --- SEÇÃO DO TOPO (Hero) --- */}
-        <section className="flex flex-col-reverse md:flex-row items-start justify-between gap-8 md:gap-12">
+        <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-8 md:gap-12">
           
           {/* Coluna de Texto */}
-          <div className="flex-1 space-y-6">
+          <div className="flex-1 space-y-6 text-center md:text-left">
             <div className="space-y-2">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 André Vinícius
@@ -29,7 +29,7 @@ export default function Home() {
             {/* Sobre Mim */}
             <div className="max-w-xl text-muted-foreground leading-relaxed">
               <h3 className="text-2xl text-foreground font-bold">About Me</h3>
-              <p className = "text-justify">
+              <p className = "text-left">
                 I started my computing journey at a very young age, playing and pirating games. 
                 I am now a Computer Engineering student at UEFS. 
                 I participated in the 13th edition of Claro Campus Mobile onsite in São Paulo, where I developed solutions bridging technology and social impact. 
@@ -84,7 +84,7 @@ export default function Home() {
                        </p>
         
                        {/* Descrição do Cargo (Texto do CV adaptado para parágrafo) */}
-                       <p className="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">
+                       <p className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
                          Developed a Chrome extension (Manifest V3) for automation, utilizing DOM manipulation, local storage, and dynamic templates. 
                          Created a bulk sending service via Evolution API (Docker), implementing rate limiting, error logging, and RESTful integration. 
                          Additionally, implemented scripts for parsing and sanitizing CSV/Excel files for contact validation and campaign optimization using Pandas in Python.
@@ -206,6 +206,7 @@ export default function Home() {
             </a>
           </div>
         </section>
+        <div className="h-24 md:h-32" />
       </div>
     </main>
   );

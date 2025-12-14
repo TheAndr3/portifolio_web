@@ -61,13 +61,13 @@ export function Navbar() {
 
   return (
     // Posicionamento fixo na parte inferior da tela
-    <div className="fixed bottom-8 left-0 right-0 z-50 flex justify-center pointer-events-none">
+    <div className="fixed bottom-4 md:bottom-8 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
       <div className="pointer-events-auto">
         <Dock 
             items={items} 
-            panelHeight={80}
-            baseItemSize={50}
-            magnification={70}
+            panelHeight={60}
+            baseItemSize={35}
+            magnification={60}
         />
       </div>
     </div>
