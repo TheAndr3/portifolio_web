@@ -13,7 +13,6 @@ import {
   Children,
   cloneElement,
   useEffect,
-  useMemo,
   useRef,
   useState,
   ReactNode,
@@ -70,22 +69,20 @@ function DockItem({
     return val - rect.x - baseItemSize / 2;
   });
 
-  // MUDANÇA 1: Calculamos apenas a LARGURA baseada na distância do mouse
   const targetWidth = useTransform(
     mouseDistance,
     [-distance, 0, distance],
     [baseItemSize, magnification, baseItemSize]
   );
   
-  // O spring suaviza a mudança de largura
   const width = useSpring(targetWidth, spring);
 
   return (
     <motion.div
       ref={ref}
       style={{
-        width, // Aplicamos a largura dinâmica
-        height: baseItemSize, // MUDANÇA 2: Altura fixa (igual ao tamanho base)
+        width, 
+        height: baseItemSize , 
       }}
       onHoverStart={() => isHovered.set(1)}
       onHoverEnd={() => isHovered.set(0)}
@@ -94,7 +91,7 @@ function DockItem({
       onClick={onClick}
       className={cn(
         "relative inline-flex items-center justify-center",
-        "rounded-full border shadow-sm cursor-pointer outline-none transition-colors", // MUDANÇA 3: rounded-full fica melhor nesse estilo pílula
+        "rounded-full border shadow-sm cursor-pointer outline-none transition-colors", 
         "bg-white border-gray-200",
         "dark:bg-[#060010] dark:border-[#222]",
         className
@@ -129,13 +126,13 @@ function DockLabel({ children, className, isHovered }: DockChildProps) {
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: -10 }} // Posição do label ajustada
+          animate={{ opacity: 1, y: -10 }} 
           exit={{ opacity: 0, y: 5 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            "absolute -top-10 left-1/2 w-fit whitespace-pre px-2 py-1", // Ajuste de posição top
+            "absolute -top-10 left-1/2 w-fit whitespace-pre px-2 py-1", 
             "text-xs rounded-md border shadow-sm",
-            "transform -translate-x-1/2 pointer-events-none", // pointer-events-none evita bugs de hover
+            "transform -translate-x-1/2 pointer-events-none", 
             "bg-white border-gray-200 text-neutral-700",
             "dark:bg-[#060010] dark:border-[#222] dark:text-white",
             className
@@ -162,7 +159,7 @@ export default function Dock({
   items,
   className,
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
-  magnification = 80, // MUDANÇA 4: Aumentei um pouco a largura máxima padrão
+  magnification = 80, // Aumentei um pouco a largura máxima padrão
   distance = 200,
   panelHeight = 64, // Altura fixa do painel
   baseItemSize = 50, // Tamanho base (altura fixa dos itens)
@@ -184,7 +181,7 @@ export default function Dock({
           mouseX.set(Infinity);
         }}
         className={cn(
-          "mx-auto flex w-fit gap-3 rounded-full px-3", // MUDANÇA 5: rounded-full no container
+          "mx-auto flex w-fit gap-3 rounded-full px-3", 
           "items-center border", // items-center para centralizar verticalmente
           "bg-white/80 border-gray-200",
           "dark:bg-[#060010]/80 dark:border-[#222]",

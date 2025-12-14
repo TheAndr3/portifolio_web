@@ -1,21 +1,23 @@
 "use client";
 
 import Dock from "../ui/Dock";
+import { useRouter } from "next/navigation";
 import ThemeToggle from "../ui/ThemeToogle";
-import { Home, User, FolderGit2, BookOpen, FolderGit, Code } from "lucide-react";
+import { Home, BookOpen, Code, Github } from "lucide-react";
 
 export function Navbar() {
+  const router = useRouter();
   const items = [
     { 
       icon: <Home size={24} className="text-foreground" />, 
-      label: 'Início', 
-      onClick: () => window.location.href = '/' 
+      label: 'Home', 
+      onClick: () => router.push('/') 
     },
     
     { 
       icon: <BookOpen size={24} className="text-foreground" />, 
       label: 'Blog', 
-      onClick: () => window.location.href = '/blog' 
+      onClick: () => router.push('/blog') 
     },
     
     // { 
@@ -26,8 +28,8 @@ export function Navbar() {
     // 
     { 
       icon: <Code size={24} className="text-foreground" />, 
-      label: 'Projetos', 
-      onClick: () => window.location.hash = '/projects' 
+      label: 'Projects', 
+      onClick: () => router.push('/projects')
     },
 
     { 
@@ -41,11 +43,18 @@ export function Navbar() {
       label: 'LinkedIn', 
       onClick: () => window.open("https://linkedin.com/in/theandr3", "_blank") 
     },
+    
+    { 
+      icon: <Github size={24} className="text-foreground" />, 
+      label: 'Github', 
+      onClick: () => window.open("https://github.com/TheAndr3", "_blank")  
+    },
+    
     {
         // Aqui o ThemeToggle entra como um "ícone"
         // Passamos 'pointer-events-auto' para garantir que o clique vá pro toggle
         icon: <div className="pointer-events-auto"><ThemeToggle /></div>,
-        label: 'Tema',
+        label: 'Theme',
         onClick: () => {} // Deixe vazio, o toggle controla o clique internamente
     }
   ];
