@@ -1,4 +1,3 @@
-```markdown
 # Personal Portfolio & Blog
 
 Welcome to my personal portfolio repository! This project was developed to serve as a central hub to showcase my projects (Showcase) and share technical knowledge through an integrated Blog.
