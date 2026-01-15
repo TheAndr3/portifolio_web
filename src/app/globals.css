@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "daisyui";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is([data-theme='dark'] *));
 
@@ -117,9 +118,16 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html,
   body {
-    @apply bg-background text-foreground;
+    @apply h-full bg-background text-foreground;
   }
+
+  body {
+    @apply min-h-screen;
+  }
+
   a:hover {
     @apply underline;
   }

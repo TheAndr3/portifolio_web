@@ -1,7 +1,3 @@
-# Personal Portfolio & Blog
-
-Welcome to my personal portfolio repository! This project was developed to serve as a central hub to showcase my projects (Showcase) and share technical knowledge through an integrated Blog.
-
 ## 🚀 About the Project
 
 This is a Full Stack project developed using the most modern technologies in the React/Next.js ecosystem. The main objective is to consolidate knowledge in hybrid rendering (Server vs. Client Components), performance optimization, and TypeScript best practices.

@@ -1,33 +1,62 @@
-import Link from "next/link";
-import { BookOpen } from "lucide-react";
+import Link from 'next/link';
+import { getAllPosts, BlogPost } from '@/lib/blog';
+
+export const metadata = {
+  title: 'Blog | My Portfolio',
+  description: 'Articles and thoughts on web development and technology.',
+};
 
 export default function BlogPage() {
+  const posts = getAllPosts();
+
+  // Group posts by category
+  const postsByCategory: Record<string, BlogPost[]> = {};
+
+  posts.forEach(post => {
+    const category = post.frontmatter.category || 'Uncategorized';
+    if (!postsByCategory[category]) {
+      postsByCategory[category] = [];
+    }
+    postsByCategory[category].push(post);
+  });
+
+  // Sort categories if needed, or keeping them as they appear could be fine.
+  // For now let's use Object.keys().
+  const categories = Object.keys(postsByCategory).sort();
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-6 text-center">
-      <div className="max-w-md space-y-8">
-        {/* Ícone com fundo suave */}
-        <div className="flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-accent/30 flex items-center justify-center animate-pulse">
-            <BookOpen className="w-10 h-10 text-primary" />
-          </div>
-        </div>
+    <div className="container mx-auto px-6 py-12 max-w-4xl">
+      <h1 className="text-5xl font-extrabold mb-16 tracking-tight text-center">Blog</h1>
 
-        <div className="space-y-4">
-          <h1 className="text-4xl font-extrabold tracking-tight">
-            Blog Under Construction
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            I am currently writing some awesome articles to share my knowledge and experiences. Stay tuned!
-          </p>
+      {categories.length === 0 ? (
+        <p className="text-muted-foreground text-center text-lg">No posts found. Check back soon!</p>
+      ) : (
+        <div className="space-y-16">
+          {categories.map((category) => (
+            <section key={category}>
+              <h2 className="text-2xl font-bold mb-6 text-foreground">{category}</h2>
+              <div className="flex flex-col space-y-8">
+                {postsByCategory[category].map((post) => (
+                  <div key={post.slug} className="group">
+                    <Link href={`/blog/${post.slug}`} className="block">
+                      <h3 className="text-lg font-medium group-hover:text-primary transition-colors">
+                        - {post.frontmatter.title}
+                      </h3>
+                      <time className="text-sm text-muted-foreground block mt-1 pl-4">
+                        {new Date(post.frontmatter.date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </time>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
-
-        <Link 
-          href="/"
-          className="inline-block px-8 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition-all hover:scale-105"
-        >
-          Return to Home
-        </Link>
-      </div>
+      )}
     </div>
   );
 }
