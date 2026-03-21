@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Deds Links",
+  title: "Andre Vinícius",
   description: "Projeto de portfólio pessoal de André Vinícius",
   icons: {
     icon: "icon.svg",

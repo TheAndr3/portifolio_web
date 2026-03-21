@@ -96,6 +96,46 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-foreground">Academic Experience</h2>
+
+          <div className="flex gap-4 md:gap-6">
+
+            {/* Logo da Empresa */}
+            <div className="flex-shrink-0 mt-1">
+              {/* Container redondo branco estilo referência */}
+              <div className=" relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center shadow-sm border border-neutral-200 overflow-hidden">
+                <Image
+                  src="/brasao-uefs-2.png"
+                  alt="Logo da UEFS"
+                  fill
+                  className="scale-125 object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Conteúdo da Experiência */}
+            <div className="flex-1 space-y-2">
+              {/* Cabeçalho: Empresa + Data */}
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                <h3 className="text-xl font-bold text-foreground">UEFS</h3>
+                <span className="text-sm text-muted-foreground font-medium">August 2025 - Today</span>
+              </div>
+
+              {/* Cargo com destaque de cor (como na referência) */}
+              <p className="text-blue-500 dark:text-blue-400 font-medium">
+                Software Developer (Undergraduate Researcher)
+              </p>
+
+                <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
+                <div>- Developing LogicFarm, a pharmaceutical management SaaS, utilizing Next.js, Node.js, and MongoDB to streamline operational workflows.</div>
+                <div>- Implemented advanced search and data optimization features using Python (Datasketch) for high-performance scientific data analysis.</div>
+                <div>- Applied software architecture best practices and design patterns to ensure system scalability and long-term maintainability.</div>
+                </div>
+            </div>
+          </div>
+        </section>
+
         <section className="space-y-6">
           <h2 className="text-2xl font-bold text-foreground">Courses and Certifications</h2>
 
@@ -121,8 +161,8 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
                   <h3 className="text-lg md:text-xl font-bold text-foreground">
                     <Link
-                      href="https://drive.google.com/file/d/1AGK4gaDbA85wq7mh-NmLxBRRRUswhhmu/view?usp=sharing" // <--- COLOQUE O LINK AQUI
-                      target="_blank" // Abre em nova aba
+                      href="https://drive.google.com/file/d/1AGK4gaDbA85wq7mh-NmLxBRRRUswhhmu/view?usp=sharing" 
+                      target="_blank" 
                       className="flex gap-4 md:gap-6 items-center group p-3 -mx-3 rounded-xl hover:bg-accent/50 transition-colors cursor-pointer"
                     >
                       Platform Engineering (FAST)
@@ -140,8 +180,6 @@ export default function Home() {
               </div>
             </div>
 
-
-            {/* Item 2: Campus Mobile - AGORA É UM LINK */}
 
             {/* Item 2: Campus Mobile */}
             <div className="flex gap-4 md:gap-6 items-center">
