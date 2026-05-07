@@ -4,10 +4,6 @@ import { ExternalLink, Globe } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 
 export default function Home() {
-  const links = [
-    { name: "Download CV", href: "https://drive.google.com/file/d/1jxaWjmFVQgj3LYePpmJaQeqfC4vRjNFj/view?usp=sharing" },
-  ];
-
   const posts = getAllPosts().slice(0, 2);
 
   return (
@@ -119,19 +115,34 @@ export default function Home() {
               {/* Cabeçalho: Empresa + Data */}
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
                 <h3 className="text-xl font-bold text-foreground">UEFS</h3>
+              </div>
+
+              {/* Cargo com destaque de cor e data */}
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                <p className="text-blue-500 dark:text-blue-400 font-medium">
+                  Software Developer (Undergraduate Researcher)
+                </p>
                 <span className="text-sm text-muted-foreground font-medium">August 2025 - Today</span>
               </div>
 
-              {/* Cargo com destaque de cor (como na referência) */}
-              <p className="text-blue-500 dark:text-blue-400 font-medium">
-                Software Developer (Undergraduate Researcher)
-              </p>
-
-                <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
+              <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
                 <div>- Developing LogicFarm, a pharmaceutical management SaaS, utilizing Next.js, Node.js, and MongoDB to streamline operational workflows.</div>
                 <div>- Implemented advanced search and data optimization features using Python (Datasketch) for high-performance scientific data analysis.</div>
                 <div>- Applied software architecture best practices and design patterns to ensure system scalability and long-term maintainability.</div>
-                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline pt-4">
+                <p className="text-blue-500 dark:text-blue-400 font-medium">
+                  Software Developer (Technological Initiation)
+                </p>
+                <span className="text-sm text-muted-foreground font-medium">April 2026 - Today</span>
+              </div>
+
+              <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
+                <div>- Engineering web and mobile platforms for NUPISC, DivulgaSUS and Saúde Digital Bahia to centralize regional health data and research.</div>
+                <div>- Developing interactive dashboards and geospatial mapping tools to provide evidence-based decision support for public health managers.</div>
+                <div>- Analyzing health information systems to implement data interoperability and integration between SUS care levels.</div>
+              </div>
             </div>
           </div>
         </section>
@@ -161,8 +172,8 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
                   <h3 className="text-lg md:text-xl font-bold text-foreground">
                     <Link
-                      href="https://drive.google.com/file/d/1AGK4gaDbA85wq7mh-NmLxBRRRUswhhmu/view?usp=sharing" 
-                      target="_blank" 
+                      href="https://drive.google.com/file/d/1AGK4gaDbA85wq7mh-NmLxBRRRUswhhmu/view?usp=sharing"
+                      target="_blank"
                       className="flex gap-4 md:gap-6 items-center group p-3 -mx-3 rounded-xl hover:bg-accent/50 transition-colors cursor-pointer"
                     >
                       Platform Engineering (FAST)
@@ -290,30 +301,46 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- LISTA DE LINKS (Abaixo do Hero) --- */}
-        <section className="space-y-4 max-w-md">
-          <h3 className="text-2xl font-semibold mb-4">CV & Contact</h3>
-          <div className="grid gap-3 items-center">
-            {links.map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                target="_blank"
-                className="group flex items-center justify-between p-4 bg-card border border-border rounded-xl hover:border-primary/50 hover:bg-accent/50 transition-all duration-300"
-              >
-                <span className="font-medium">{link.name}</span>
-                <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </Link>
-            ))}
-
-            {/* Email separado para destaque */}
-            <a
-              href="mailto:andrevinciusdiz@gmail.com"
-              className="mt-4 inline-block text-xl text-muted-foreground hover:text-primary transition-colors"
-            >
-              andrevinciusdiz@gmail.com
-            </a>
+        {/* --- CONTACT SECTION --- */}
+        <section className="flex flex-col items-center justify-center space-y-8 pt-16 pb-8 text-center">
+          <div className="space-y-4 max-w-2xl">
+            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold tracking-wider uppercase">
+              Get in Touch
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+              Let's build something together
+            </h2>
+            <p className="text-muted-foreground md:text-lg leading-relaxed max-w-xl mx-auto">
+              Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+            </p>
           </div>
+
+          <a
+            href="mailto:andrevinciusdiz@gmail.com"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full text-lg font-semibold overflow-hidden hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] transition-all duration-300"
+          >
+            {/* Efeito de brilho hover */}
+            <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
+              <div className="relative h-full w-8 bg-white/20" />
+            </div>
+
+            <span>andrevinciusdiz@gmail.com</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </section>
         <div className="h-24 md:h-32" />
       </div>
