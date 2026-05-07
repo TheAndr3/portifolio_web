@@ -46,24 +46,45 @@ export default function Home() {
 
         </section>
 
-        {/* --- CORE TECH STACK --- */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-bold text-foreground">Core Tech Stack</h2>
-          <div className="flex flex-wrap gap-3">
-            {["Next.js", "Node.js", "TypeScript", "Python", "MongoDB", "Docker", "Tailwind CSS"].map((tech) => (
-              <span
-                key={tech}
-                className="px-4 py-2 bg-secondary/50 text-secondary-foreground rounded-full text-sm font-semibold border border-border hover:-translate-y-1 hover:bg-secondary hover:shadow-sm transition-all cursor-default"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </section>
-
         <section className="space-y-8">
           <h2 className="text-2xl font-bold text-foreground">Professional Experience</h2>
 
+            {/* Item de Experiência: TCU*/}
+          <div className="flex gap-4 md:gap-6 group">
+
+            {/* Logo da Empresa */}
+            <div className="flex-shrink-0 mt-1">
+              {/* Container redondo branco estilo referência */}
+              <div className=" relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center shadow-sm border border-neutral-200 overflow-hidden">
+                <Image
+                  src="/tcu.png"
+                  alt="Logo da TCU"
+                  fill
+                  className="scale-100 object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Conteúdo da Experiência */}
+            <div className="flex-1 space-y-2 p-4 -m-4 rounded-xl hover:bg-accent/30 transition-colors">
+              {/* Cabeçalho: Empresa + Data */}
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                <h3 className="text-xl font-bold text-foreground">TCU</h3>
+                <span className="text-sm text-muted-foreground font-medium">2026 - Present</span>
+              </div>
+
+              {/* Cargo com destaque de cor (como na referência) */}
+              <p className="text-blue-500 dark:text-blue-400 font-medium">
+                Full Stack Developer Intern
+              </p>
+
+              {/* Descrição do Cargo (Texto do CV adaptado para parágrafo) */}
+              <p className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
+                
+              </p>
+            </div>
+          </div>
+          
           {/* Item de Experiência: Acredita Bahia */}
           <div className="flex gap-4 md:gap-6 group">
 
@@ -101,6 +122,7 @@ export default function Home() {
               </p>
             </div>
           </div>
+
         </section>
 
         <section className="space-y-8">
@@ -350,6 +372,21 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* --- CORE TECH STACK --- */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-foreground">Core Tech Stack</h2>
+          <div className="flex flex-wrap gap-3">
+            {["Next.js", "Node.js", "TypeScript", "Python", "SQL", "Docker"].map((tech) => (
+              <span
+                key={tech}
+                className="px-4 py-2 bg-secondary/50 text-secondary-foreground rounded-full text-sm font-semibold border border-border hover:-translate-y-1 hover:bg-secondary hover:shadow-sm transition-all cursor-default"
+              >
+                {tech}
+              </span>
             ))}
           </div>
         </section>
