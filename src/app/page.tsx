@@ -21,20 +21,16 @@ export default function Home() {
                 André Vinícius
               </h1>
               <h2 className="text-xl md:text-2xl text-muted-foreground font-medium">
-                Exploring innovation and creating impact through technology.
+                Full-Stack Software Engineer building scalable applications and data-driven solutions.
               </h2>
             </div>
 
             {/* Sobre Mim */}
             <div className="max-w-xl text-muted-foreground leading-relaxed">
-              <h3 className="text-2xl text-foreground font-bold">About Me</h3>
+              <h3 className="text-2xl text-foreground font-bold mb-3">About Me</h3>
               <p className="text-left">
-                I started my computing journey at a very young age, playing and pirating games.
-                I am now a Computer Engineering student at UEFS.
-                I participated in the 13th edition of Claro Campus Mobile onsite in São Paulo, where I developed solutions bridging technology and social impact.
-                Currently, I am focused on finding a development internship to further expand my experience and knowledge.
+                I am a Full-Stack & Backend Engineer specializing in building scalable web applications and data-driven solutions. With a strong foundation in Next.js, Node.js, TypeScript and Python, I thrive on translating complex business requirements into high-performance, maintainable software architecture. From developing pharmaceutical SaaS platforms to engineering automated data pipelines, I focus on delivering robust systems that drive real impact. Fluent in English (C1) and highly adaptable, I am ready to tackle challenging engineering problems on a global scale.
               </p>
-
             </div>
           </div>
 
@@ -50,11 +46,26 @@ export default function Home() {
 
         </section>
 
+        {/* --- CORE TECH STACK --- */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-foreground">Core Tech Stack</h2>
+          <div className="flex flex-wrap gap-3">
+            {["Next.js", "Node.js", "TypeScript", "Python", "MongoDB", "Docker", "Tailwind CSS"].map((tech) => (
+              <span
+                key={tech}
+                className="px-4 py-2 bg-secondary/50 text-secondary-foreground rounded-full text-sm font-semibold border border-border hover:-translate-y-1 hover:bg-secondary hover:shadow-sm transition-all cursor-default"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </section>
+
         <section className="space-y-8">
           <h2 className="text-2xl font-bold text-foreground">Professional Experience</h2>
 
           {/* Item de Experiência: Acredita Bahia */}
-          <div className="flex gap-4 md:gap-6">
+          <div className="flex gap-4 md:gap-6 group">
 
             {/* Logo da Empresa */}
             <div className="flex-shrink-0 mt-1">
@@ -70,7 +81,7 @@ export default function Home() {
             </div>
 
             {/* Conteúdo da Experiência */}
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-2 p-4 -m-4 rounded-xl hover:bg-accent/30 transition-colors">
               {/* Cabeçalho: Empresa + Data */}
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
                 <h3 className="text-xl font-bold text-foreground">Acredita Bahia</h3>
@@ -93,9 +104,9 @@ export default function Home() {
         </section>
 
         <section className="space-y-8">
-          <h2 className="text-2xl font-bold text-foreground">Academic Experience</h2>
+          <h2 className="text-2xl font-bold text-foreground">Applied Research & Engineering</h2>
 
-          <div className="flex gap-4 md:gap-6">
+          <div className="flex gap-4 md:gap-6 group">
 
             {/* Logo da Empresa */}
             <div className="flex-shrink-0 mt-1">
@@ -111,7 +122,7 @@ export default function Home() {
             </div>
 
             {/* Conteúdo da Experiência */}
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-2 p-4 -m-4 rounded-xl hover:bg-accent/30 transition-colors">
               {/* Cabeçalho: Empresa + Data */}
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
                 <h3 className="text-xl font-bold text-foreground">UEFS</h3>
@@ -126,9 +137,9 @@ export default function Home() {
               </div>
 
               <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
-                <div>- Developing LogicFarm, a pharmaceutical management SaaS, utilizing Next.js, Node.js, and MongoDB to streamline operational workflows.</div>
-                <div>- Implemented advanced search and data optimization features using Python (Datasketch) for high-performance scientific data analysis.</div>
-                <div>- Applied software architecture best practices and design patterns to ensure system scalability and long-term maintainability.</div>
+                <div>- Engineered a scalable pharmaceutical management SaaS (LogicFarma) using Next.js, Node.js, and MongoDB, streamlining complex operational workflows.</div>
+                <div>- Implemented high-performance data optimization and advanced search algorithms using Python (Datasketch) to efficiently process scientific data.</div>
+                <div>- Architected the system applying industry best practices and design patterns to ensure long-term maintainability and horizontal scalability.</div>
               </div>
 
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline pt-4">
@@ -139,9 +150,51 @@ export default function Home() {
               </div>
 
               <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
-                <div>- Engineering web and mobile platforms for NUPISC, DivulgaSUS and Saúde Digital Bahia to centralize regional health data and research.</div>
-                <div>- Developing interactive dashboards and geospatial mapping tools to provide evidence-based decision support for public health managers.</div>
-                <div>- Analyzing health information systems to implement data interoperability and integration between SUS care levels.</div>
+                <div>- Architected and developed web and mobile platforms to centralize regional health data, significantly improving accessibility for researchers and public health managers.</div>
+                <div>- Built interactive geospatial mapping tools and evidence-based dashboards, empowering stakeholders with real-time data visualization and decision support.</div>
+                <div>- Integrated complex health information systems, establishing robust data interoperability across multiple SUS (Unified Health System) care levels.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- AWARDS & RECOGNITIONS --- */}
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-foreground">Awards & Recognitions</h2>
+
+          {/* Item: Claro Campus Mobile */}
+          <div className="flex gap-4 md:gap-6 group">
+            {/* Logo da Empresa */}
+            <div className="flex-shrink-0 mt-1">
+              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center shadow-sm border border-neutral-200 overflow-hidden">
+                <Image
+                  src="/claro.png"
+                  alt="Logo da Claro"
+                  fill
+                  className="scale-100 object-contain p-1"
+                />
+              </div>
+            </div>
+
+            {/* Conteúdo da Experiência */}
+            <div className="flex-1 space-y-2 p-4 -m-4 rounded-xl hover:bg-accent/30 transition-colors">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                  Claro
+                </h3>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                <p className="text-blue-500 dark:text-blue-400 font-medium">
+                  13th Edition of Campus Mobile
+                </p>
+                <span className="text-sm text-muted-foreground font-medium">Jan 2025 - Feb 2025</span>
+              </div>
+
+              <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
+                <div>- Selected as a National Finalist (among hundreds of applicants) in the Health category for the 13th edition of Campus Mobile, pitching an original tech solution.</div>
+                <div>- Developed a high-engagement Minimum Viable Product (MVP) using Flutter and prototyped an intuitive, gamified UI/UX using Figma.</div>
+                <div>- Refined product architecture and business strategy through intensive mentoring by industry experts from Claro, Alura, and leading healthcare institutions.</div>
               </div>
             </div>
           </div>
