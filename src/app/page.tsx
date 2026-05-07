@@ -28,9 +28,18 @@ export default function Home() {
             {/* Sobre Mim */}
             <div className="max-w-xl text-muted-foreground leading-relaxed">
               <h3 className="text-2xl text-foreground font-bold mb-3">About Me</h3>
-              <p className="text-left">
+              <p className="text-left mb-6">
                 I am a Full-Stack & Backend Engineer specializing in building scalable web applications and data-driven solutions. With a strong foundation in Next.js, Node.js, TypeScript and Python, I thrive on translating complex business requirements into high-performance, maintainable software architecture. From developing pharmaceutical SaaS platforms to engineering automated data pipelines, I focus on delivering robust systems that drive real impact. Fluent in English (C1) and highly adaptable, I am ready to tackle challenging engineering problems on a global scale.
               </p>
+
+              <div className="flex justify-center md:justify-start">
+                <Link 
+                  href="/projects" 
+                  className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-full font-bold hover:bg-primary/90 hover:scale-105 transition-all shadow-md"
+                >
+                  View All Projects
+                </Link>
+              </div>
             </div>
           </div>
 
