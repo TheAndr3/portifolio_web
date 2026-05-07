@@ -41,7 +41,7 @@ export function Navbar() {
           </svg>
       ), 
       label: 'LinkedIn', 
-      onClick: () => window.open("https://linkedin.com/in/theandr3", "_blank") 
+      onClick: () => window.open("https://linkedin.com/in/andrevnc", "_blank") 
     },
     
     { 
