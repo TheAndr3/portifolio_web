@@ -42,6 +42,7 @@ const projects: Project[] = [
     id: "minhas-compras-ba",
     title: "Minhas Compras BA",
     description: "A web application for importing SEFAZ-BA NFC-e invoices with manual captcha resolution, featuring automated scraping and comprehensive architecture.",
+    image: "/minhascompras.png",
     category: "Web",
     techStack: ["FastAPI", "Python", "React", "PostgreSQL", "Docker"],
     githubUrl: "https://github.com/TheAndr3/minhasCompras-BA"
