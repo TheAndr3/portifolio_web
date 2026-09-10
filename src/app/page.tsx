@@ -79,56 +79,19 @@ export default function Home() {
               {/* Cabeçalho: Empresa + Data */}
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
                 <h3 className="text-xl font-bold text-foreground">TCU</h3>
-                <span className="text-sm text-muted-foreground font-medium">2026 - Present</span>
+                <span className="text-sm text-muted-foreground font-medium">June 2026 – Present</span>
               </div>
 
               {/* Cargo com destaque de cor (como na referência) */}
               <p className="text-blue-500 dark:text-blue-400 font-medium">
-                Full Stack Developer Intern
+                Software Engineering Intern
               </p>
 
-              {/* Descrição do Cargo (Texto do CV adaptado para parágrafo) */}
-              <p className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
-                
-              </p>
-            </div>
-          </div>
-          
-          {/* Item de Experiência: Acredita Bahia */}
-          <div className="flex gap-4 md:gap-6 group">
-
-            {/* Logo da Empresa */}
-            <div className="flex-shrink-0 mt-1">
-              {/* Container redondo branco estilo referência */}
-              <div className=" relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center shadow-sm border border-neutral-200 overflow-hidden">
-                <Image
-                  src="/LogoAcredita.png"
-                  alt="Logo da Acredita Bahia"
-                  fill
-                  className="scale-125 object-contain"
-                />
+              {/* Descrição do Cargo */}
+              <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
+                <div>- Develop and maintain enterprise features utilizing Apex, PL/SQL, and JavaScript to support auditing and internal oversight platforms.</div>
+                <div>- Optimize complex relational database routines and database queries to ensure high data integrity and performance.</div>
               </div>
-            </div>
-
-            {/* Conteúdo da Experiência */}
-            <div className="flex-1 space-y-2 p-4 -m-4 rounded-xl hover:bg-accent/30 transition-colors">
-              {/* Cabeçalho: Empresa + Data */}
-              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
-                <h3 className="text-xl font-bold text-foreground">Acredita Bahia</h3>
-                <span className="text-sm text-muted-foreground font-medium">July 2025 - December 2025</span>
-              </div>
-
-              {/* Cargo com destaque de cor (como na referência) */}
-              <p className="text-blue-500 dark:text-blue-400 font-medium">
-                Full Stack Developer (Freelance)
-              </p>
-
-              {/* Descrição do Cargo (Texto do CV adaptado para parágrafo) */}
-              <p className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
-                Developed a Chrome extension (Manifest V3) for automation, utilizing DOM manipulation, local storage, and dynamic templates.
-                Created a bulk sending service via Evolution API (Docker), implementing rate limiting, error logging, and RESTful integration.
-                Additionally, implemented scripts for parsing and sanitizing CSV/Excel files for contact validation and campaign optimization using Pandas in Python.
-              </p>
             </div>
           </div>
 
@@ -164,7 +127,7 @@ export default function Home() {
                 <p className="text-blue-500 dark:text-blue-400 font-medium">
                   Software Developer (Undergraduate Researcher)
                 </p>
-                <span className="text-sm text-muted-foreground font-medium">August 2025 - Today</span>
+                <span className="text-sm text-muted-foreground font-medium">September 2025 – Present</span>
               </div>
 
               <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
@@ -172,18 +135,41 @@ export default function Home() {
                 <div>- Implemented high-performance data optimization and advanced search algorithms using Python (Datasketch) to efficiently process scientific data.</div>
                 <div>- Architected the system applying industry best practices and design patterns to ensure long-term maintainability and horizontal scalability.</div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline pt-4">
-                <p className="text-blue-500 dark:text-blue-400 font-medium">
-                  Software Developer (Technological Initiation)
-                </p>
-                <span className="text-sm text-muted-foreground font-medium">April 2026 - Today</span>
+        {/* --- LEADERSHIP & EXTRACURRICULAR ACTIVITIES --- */}
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-foreground">Leadership & Extracurricular Activities</h2>
+
+          <div className="flex gap-4 md:gap-6 group">
+            {/* Logo do Google */}
+            <div className="flex-shrink-0 mt-1">
+              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center shadow-sm border border-neutral-200 overflow-hidden">
+                <Image
+                  src="/google.svg"
+                  alt="Logo do Google"
+                  fill
+                  className="scale-75 object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Conteúdo */}
+            <div className="flex-1 space-y-2 p-4 -m-4 rounded-xl hover:bg-accent/30 transition-colors">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                <h3 className="text-xl font-bold text-foreground">Google</h3>
+                <span className="text-sm text-muted-foreground font-medium">August 2026 – Present</span>
               </div>
 
+              <p className="text-blue-500 dark:text-blue-400 font-medium">
+                Student Ambassador 2026
+              </p>
+
               <div className="text-muted-foreground leading-relaxed text-sm md:text-base text-left">
-                <div>- Architected and developed web and mobile platforms to centralize regional health data, significantly improving accessibility for researchers and public health managers.</div>
-                <div>- Built interactive geospatial mapping tools and evidence-based dashboards, empowering stakeholders with real-time data visualization and decision support.</div>
-                <div>- Integrated complex health information systems, establishing robust data interoperability across multiple SUS (Unified Health System) care levels.</div>
+                <div>- Lead campus initiatives to upskill university students in practical applications of Google AI technologies and Gemini workflows.</div>
+                <div>- Conduct technical knowledge-sharing sessions on modern development tools and generative AI integration.</div>
               </div>
             </div>
           </div>

@@ -38,6 +38,22 @@ const projects: Project[] = [
     techStack: ["Next.js", "Node.js", "Express", "PostgreSQL", "Docker"],
     githubUrl: "https://github.com/TheAndr3/Luminus"
   },
+  {
+    id: "minhas-compras-ba",
+    title: "Minhas Compras BA",
+    description: "A web application for importing SEFAZ-BA NFC-e invoices with manual captcha resolution, featuring automated scraping and comprehensive architecture.",
+    category: "Web",
+    techStack: ["FastAPI", "Python", "React", "PostgreSQL", "Docker"],
+    githubUrl: "https://github.com/TheAndr3/minhasCompras-BA"
+  },
+  {
+    id: "signaldesk",
+    title: "SignalDesk",
+    description: "Internal multi-tenant Case queue. Workspace members create, claim, and resolve cases while preserving strict workspace isolation and an immutable event history.",
+    category: "Open Source",
+    techStack: ["NestJS", "TypeScript", "React", "Supabase", "PostgreSQL", "Docker"],
+    githubUrl: "https://github.com/TheAndr3/SignalDesk"
+  },
 ];
 
 export default function ProjectsPage() {
