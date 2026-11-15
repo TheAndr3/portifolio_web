@@ -40,55 +40,57 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     const components = useMDXComponents({});
 
     return (
-        <article className="container mx-auto px-6 py-12 max-w-3xl">
-            <div className="flex items-center justify-between mb-10">
-                <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors font-medium">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Articles
-                </Link>
-                {typeof post.frontmatter.devtoUrl === 'string' && (
-                    <Link
-                        href={post.frontmatter.devtoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-secondary text-secondary-foreground rounded-full text-xs font-semibold hover:bg-secondary/80 transition-colors"
-                    >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                        Read on Dev.to
+        <main className="min-h-screen bg-background text-foreground px-4 py-12 md:py-20 lg:px-24">
+            <article className="mx-auto max-w-3xl">
+                <div className="flex items-center justify-between mb-10">
+                    <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors font-medium">
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Articles
                     </Link>
-                )}
-            </div>
-
-            <header className="mb-10 pb-8 border-b border-border">
-                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 leading-tight">
-                    {post.frontmatter.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                    <time dateTime={post.frontmatter.date}>
-                        {new Date(post.frontmatter.date).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                        })}
-                    </time>
-
-                    {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                            {post.frontmatter.tags.map((tag) => (
-                                <span key={tag} className="px-2.5 py-0.5 bg-secondary text-secondary-foreground rounded-full text-xs font-medium">
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
+                    {typeof post.frontmatter.devtoUrl === 'string' && (
+                        <Link
+                            href={post.frontmatter.devtoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-secondary text-secondary-foreground rounded-full text-xs font-semibold hover:bg-secondary/80 transition-colors"
+                        >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            Read on Dev.to
+                        </Link>
                     )}
                 </div>
-            </header>
 
-            <div className="max-w-none break-words">
-                <MDXRemote source={post.content} components={components} />
-            </div>
+                <header className="mb-10 pb-8 border-b border-border">
+                    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 leading-tight">
+                        {post.frontmatter.title}
+                    </h1>
+                    <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                        <time dateTime={post.frontmatter.date}>
+                            {new Date(post.frontmatter.date).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric',
+                            })}
+                        </time>
 
-            <div className="h-24" />
-        </article>
+                        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {post.frontmatter.tags.map((tag) => (
+                                    <span key={tag} className="px-2.5 py-0.5 bg-secondary text-secondary-foreground rounded-full text-xs font-medium">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </header>
+
+                <div className="max-w-none break-words">
+                    <MDXRemote source={post.content} components={components} />
+                </div>
+
+                <div className="h-24" />
+            </article>
+        </main>
     );
 }
