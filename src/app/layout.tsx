@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Andre Vinícius",
-  description: "Projeto de portfólio pessoal de André Vinícius",
+  title: "André Vinícius | AI Engineer & Software Engineer",
+  description: "Portfolio of André Vinícius Diz Freitas — AI Engineer & Software Engineer (Multi-Agent Systems, MCP, Machine Learning, Distributed Systems).",
   icons: {
     icon: "icon.svg",
   },
