@@ -1,0 +1,89 @@
+---
+title: "Sistemas de Recomendação em Produção com LSH Forest, MinHash e Cache LRU Serverless (latência de 200ms)"
+date: "2026-11-14"
+description: "Como projetei e coloquei em produção na UEFS um motor de recomendação por Filtragem Colaborativa com LSH Forest (l=200), MinHash, Cache LRU em memória e degradação graciosa em 4 níveis."
+category: "Machine Learning & Recommender Systems"
+tags: ["Machine Learning", "LSH Forest", "MinHash", "Python"]
+devtoUrl: "https://dev.to/theandr3/sistemas-de-recomendacao-em-producao-com-lsh-forest-minhash-e-cache-lru-serverless-latencia-de-1mk1"
+---
+
+Quando falamos de Inteligência Artificial hoje, quase toda a atenção vai para LLMs. Mas em produtos de alto volume — como e-commerce, delivery e plataformas de saúde — **Sistemas de Recomendação Clássicos** continuam sendo a espinha dorsal da personalização em larga escala.
+
+Durante 12 meses de pesquisa e extensão na **Universidade Estadual de Feira de Santana (UEFS)**, sob orientação do Prof. Dr. João Batista da Rocha Junior, projetei e coloquei em produção o módulo de recomendação do **LogicFarma** (plataforma SaaS da Farmácia Universitária com mais de 4.700 operações registradas, 666 históricos clínicos avaliados e 1.060 medicamentos).
+
+O desafio de engenharia era claro: **como recomendar procedimentos e consultas personalizadas para centenas de pacientes em tempo real e em disparos em lote (e-mail/WhatsApp), rodando sobre funções Serverless com limites rígidos de memória e tempo de execução?**
+
+---
+
+## 1. O Problema de Escala da Filtragem Colaborativa Tradicional
+
+Na Filtragem Colaborativa Baseada no Usuário (*User-Based Collaborative Filtering*), para recomendar itens ao usuário `u_i`, precisamos encontrar os `k` usuários mais similares a ele usando a **Similaridade de Jaccard**:
+
+```text
+J(A, B) = |A ∩ B| / |A ∪ B|
+```
+
+Calcular `J(A, B)` exatamente contra todos os usuários tem custo `O(N * M)` por consulta. Em disparos em lote de campanhas de saúde para centenas de pacientes simultaneamente, a busca exata estoura facilmente o timeout da função Serverless.
+
+---
+
+## 2. MinHash (`l = 200`) + LSH Forest (`k = 20`)
+
+Para transformar uma busca linear em sublinear sem perder precisão relevante, implementamos a arquitetura proposta por **Rocha-Junior et al. (2025)** apoiada em dois pilares probabilísticos:
+
+1. **Assinaturas MinHash (`l = 200` permutações):** cada conjunto de procedimentos e consultas já realizados pelo paciente é comprimido em um vetor de tamanho fixo `l = 200` usando hashes universais sobre o primo de Mersenne `2^61 - 1` e semente determinística. A probabilidade de colisão em cada posição estima diretamente a similaridade de Jaccard com erro padrão aproximado de `1 / sqrt(200) ≈ 0,07`.
+2. **LSH Forest (Bawa et al., WWW 2005):** em vez do LSH tradicional (que exige calibrar manualmente o número de buckets e o limiar de similaridade), utilizamos uma floresta de árvores de prefixos auto-ajustável (`MinHashLSHForest`), consultando `k_build = 80` vizinhos na indexação e `k_query = 20` vizinhos em tempo real.
+
+---
+
+## 3. Adaptação do E-commerce para o Domínio Clínico
+
+No modelo original de e-commerce, as interações possuem pesos graduados (`visited = 1`, `cart_added = 4`, `bought = 8`). No domínio farmacêutico, a interação é estritamente binária (o paciente realizou ou não o procedimento/consulta). Fizemos três adaptações de domínio:
+
+- **Unificação de pesos por co-ocorrência:** cada item é codificado como `"Nome|Categoria"` (ex.: `"Glicemia|Procedimento"`, `"Cefaleia|Consulta"`), e o score dos itens candidatos nos `k = 20` vizinhos mais próximos é dado pela frequência de co-ocorrência nos vizinhos para itens ainda inéditos no histórico do paciente:
+
+```text
+score(p) = soma sobre u_j em NN(u_i) de I(p in D[u_j] e p not in D[u_i])
+```
+
+- **Filtro de elegibilidade e outliers:** apenas perfis com `min_items = 2` até `max_items = 100` entram no índice LSH Forest.
+- **Filtro determinístico por restrição clínica de gênero:** consultas exclusivas ao público feminino (como `"Cólica Menstrual"`) são filtradas tanto na saída do LSH quanto na pré-computação do ranking de fallback masculino (`GLOBAL_MASCULINO`).
+
+---
+
+## 4. Arquitetura Memory-First com Cache LRU e Batch Inference
+
+Como a aplicação principal rodava em **Next.js / TypeScript** e a biblioteca de referência acadêmica para LSH (`datasketch`) estava em **Python**, separamos o motor de recomendação em funções Serverless Python integradas ao MongoDB.
+
+Para evitar ler e desserializar o índice do banco a cada chamada, desenhamos uma arquitetura **Memory-First**:
+
+```text
+[Cron Mensal Python] ---> Constrói LSH Forest (l=200) ---> Serializa blobs no MongoDB
+                                                                  |
+[Next.js Top Tags]   ---> POST /api/lsh/batch (até 300 pac.) ---> Cache LRU em RAM (50 farmácias)
+```
+
+- **Cold Start (~2 a 3s):** carrega os pickle blobs (`forestBlob`, `minhashesBlob`, `fallbacksBlob`, `itemsByPatientBlob`) do MongoDB e hidrata o container.
+- **Warm Start (~0,2 a 0,3s):** o **Cache LRU em RAM** responde diretamente da memória da função Serverless, sem tocar no banco.
+- **Endpoint em Lote (`/api/lsh/batch`):** quando o farmacêutico dispara comunicados com **Top Tags** (`#Top3ProcedimentosRec`, `#Top3ConsultasRec`), o módulo `recommendationTagResolver.ts` agrupa até **300 pacientes em uma única chamada HTTP POST**, carregando o cache da farmácia uma só vez.
+
+---
+
+## 5. Degradação Graciosa em 4 Níveis (Zero Falha no Disparo)
+
+Em um sistema real, o algoritmo de recomendação **nunca pode derrubar o fluxo principal de comunicação** (seja por *cold start* de um paciente novo sem histórico, seja por timeout de rede). Implementamos 4 níveis de degradação:
+
+1. **LSH Completo (`lsh`):** os 20 vizinhos do LSH Forest preenchem todas as `k` sugestões pedidas.
+2. **LSH Parcial + Suplementação (`lsh_partial`):** quando os vizinhos têm pouca variedade, o sistema completa as vagas faltantes com o **Fallback Global segmentado por gênero** (`GLOBAL_FEMININO` ou `GLOBAL_MASCULINO`).
+3. **Fallback de Cold Start (`fallback`):** paciente recém-cadastrado (sem histórico) recebe imediatamente o ranking global segmentado pré-computado em memória, ou via leitura direta da coleção `recomendacoesMensais`.
+4. **Fail-safe de Timeout (30s):** se a API Python falhar, as Top Tags degradam para string vazia e a mensagem transacional segue normalmente.
+
+Em produção na Farmácia Universitária da UEFS, o indexador processou **666 históricos de pacientes** em 4 unidades, indexando **353 perfis elegíveis** e **1.978 registros clínicos** em menos de 1,7 segundo.
+
+---
+
+## Links relacionados
+
+- **Código de referência e Model Card no Hugging Face:** [huggingface.co/TheAndr3/lsh-forest-clinical-recommender](https://huggingface.co/TheAndr3/lsh-forest-clinical-recommender)
+- **Artigo no Dev.to:** [dev.to/theandr3](https://dev.to/theandr3/sistemas-de-recomendacao-em-producao-com-lsh-forest-minhash-e-cache-lru-serverless-latencia-de-1mk1)
+- **GitHub:** [github.com/TheAndr3](https://github.com/TheAndr3)

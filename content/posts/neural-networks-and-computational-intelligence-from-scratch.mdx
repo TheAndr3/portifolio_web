@@ -1,0 +1,77 @@
+---
+title: "Implementando Redes Neurais e Inteligência Computacional do zero em Python (Perceptron, Adaline, MLP, Kohonen, Fuzzy e Algoritmos Genéticos)"
+date: "2026-11-13"
+description: "Como implementar a matemática fundamental de Redes Neurais Artificiais (Perceptron, Adaline LMS, MLP Backpropagation, Mapas de Kohonen) e Inteligência Computacional sem usar frameworks caixa-preta."
+category: "Machine Learning & Neural Networks"
+tags: ["Neural Networks", "Machine Learning", "Python", "Algorithms"]
+devtoUrl: "https://dev.to/theandr3/aprendendo-ml-do-zero-1pnp"
+---
+
+Antes de orquestrar LLMs modernos ou usar frameworks prontos como PyTorch e scikit-learn, implementar os algoritmos clássicos de **Redes Neurais Artificiais** e **Inteligência Computacional** diretamente em Python — equacionando atualização de pesos, gradiente descendente, vizinhança topológica e defuzzificação — muda completamente a forma como depuramos modelos em produção.
+
+Ao longo da graduação em **Engenharia da Computação na UEFS**, construí uma série de implementações do zero em Python cobrindo aprendizado supervisionado, não supervisionado e sistemas bioinspirados. Neste artigo, resumo a intuição matemática e prática de cada um deles (com os repositórios abertos no GitHub).
+
+---
+
+## 1. Do Neurônio Linear ao Gradiente Descendente: Perceptron vs. Adaline
+
+Os dois blocos fundamentais das redes neurais clássicas mostram por que a escolha da função de custo no treinamento importa:
+
+- **[Perceptron de Rosenblatt (`perceptron-oil-problem`)](https://github.com/TheAndr3/perceptron-oil-problem):** aplica uma função degrau bipolar sobre a combinação linear `u = w^T * x - theta`. Os pesos só são atualizados quando há erro de classificação na saída discretizada (`y != d`), convergindo sempre que as classes forem linearmente separáveis (como na classificação de amostras químicas de óleo).
+- **[Adaline — Adaptive Linear Neuron (`adaline_valvulas`)](https://github.com/TheAndr3/adaline_valvulas):** diferente do Perceptron, o Adaline utiliza a **Regra Delta (LMS — Least Mean Squares)**, calculando o erro sobre o potencial de ativação linear `u` *antes* do limiar de decisão:
+
+```text
+w(t + 1) = w(t) + eta * (d - u) * x
+```
+
+Isso permite minimizar continuamente o **Erro Quadrático Médio (EQM)** pelo gradiente descendente e encontrar uma fronteira de decisão ótima mesmo quando há ruído nas medições de sensores industriais (como no diagnóstico de válvulas).
+
+---
+
+## 2. Rompendo a Barreira Linear: Multilayer Perceptron (MLP) e Backpropagation
+
+Quando o problema não é linearmente separável, uma única camada falha. Na implementação **[`multilayer-perceptron`](https://github.com/TheAndr3/multilayer-perceptron)**, construí uma rede **MLP** treinada com retropropagação do erro (**Backpropagation**):
+
+1. **Passo Forward:** propagação camada a camada com funções de ativação diferenciáveis (logística/sigmoide ou tangente hiperbólica).
+2. **Passo Backward (Regra da Cadeia):** cálculo dos gradientes locais `delta` da camada de saída para as camadas ocultas, distribuindo a responsabilidade do erro proporcionalmente aos pesos sinápticos.
+3. **Ajuste com Taxa de Aprendizado e Momentum:** estabilização da convergência ao longo das épocas de treinamento.
+
+---
+
+## 3. Aprendizado Não Supervisionado Competitivo: Mapas Auto-Organizáveis de Kohonen (SOM)
+
+Nem todo problema tem rótulos pré-definidos. No repositório **[`kohonen-iris-plants`](https://github.com/TheAndr3/kohonen-iris-plants)**, implementei um **Mapa Auto-Organizável de Kohonen (Self-Organizing Map — SOM)** aplicado ao clássico dataset *Iris Plants*:
+
+- Em vez de minimizar erro contra um rótulo, os neurônios da grade bidimensional **competem** entre si para cada amostra de entrada `x`.
+- O neurônio vencedor (**BMU — Best Matching Unit**) é aquele cujo vetor de pesos tem a menor distância euclidiana para `x`:
+
+```text
+BMU = argmin_j || x - w_j ||
+```
+
+- Em seguida, ocorre a **cooperação topológica**: tanto o BMU quanto seus vizinhos físicos na grade têm seus pesos aproximados de `x`, preservando a topologia de um espaço de 4 dimensões em um mapa 2D visualizável.
+
+---
+
+## 4. Além de Redes Neurais: Controladores Fuzzy e Algoritmos Genéticos
+
+Para problemas de controle contínuo e otimização combinatória onde o gradiente não está disponível, implementei mais duas abordagens clássicas de Inteligência Computacional:
+
+- **Sistemas de Inferência Fuzzy ([`controlador_fuzzy`](https://github.com/TheAndr3/controlador_fuzzy)):** modelam incerteza contínua por funções de pertinência (*fuzzificação*), base de regras linguísticas (`SE ... ENTÃO ...`) e *defuzzificação* (centroide) para controle suave onde regras booleanas rígidas falham.
+- **Algoritmos Genéticos ([`Algoritmo-Genetico`](https://github.com/TheAndr3/Algoritmo-Genetico)):** busca meta-heurística populacional com seleção por aptidão (*fitness*), cruzamento (*crossover*) e mutação estocástica para escapar de ótimos locais em espaços de busca discretos ou não diferenciáveis.
+
+---
+
+## Por que isso importa na era de LLMs e Sistemas Multi-Agente?
+
+Quando hoje projeto um sistema multi-agente como o **[Comanda](https://github.com/TheAndr3/comanda)** (com BM25 + stemmer Snowball em português do zero) ou um motor de recomendação em produção com **[LSH Forest e MinHash](https://huggingface.co/TheAndr3/lsh-forest-clinical-recommender)**, os fundamentos são os mesmos: espaço vetorial, métricas de distância/similaridade, custo computacional por consulta e avaliação quantitativa rigorosa.
+
+## Repositórios no GitHub
+
+- **Comanda (Agentes + MCP + τ-bench):** [github.com/TheAndr3/comanda](https://github.com/TheAndr3/comanda) ([Replay ao vivo](https://comanda-blond.vercel.app))
+- **MLP:** [github.com/TheAndr3/multilayer-perceptron](https://github.com/TheAndr3/multilayer-perceptron)
+- **Mapa de Kohonen (SOM):** [github.com/TheAndr3/kohonen-iris-plants](https://github.com/TheAndr3/kohonen-iris-plants)
+- **Adaline:** [github.com/TheAndr3/adaline_valvulas](https://github.com/TheAndr3/adaline_valvulas)
+- **Perceptron:** [github.com/TheAndr3/perceptron-oil-problem](https://github.com/TheAndr3/perceptron-oil-problem)
+- **Controlador Fuzzy:** [github.com/TheAndr3/controlador_fuzzy](https://github.com/TheAndr3/controlador_fuzzy)
+- **Algoritmo Genético:** [github.com/TheAndr3/Algoritmo-Genetico](https://github.com/TheAndr3/Algoritmo-Genetico)

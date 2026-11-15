@@ -14,7 +14,8 @@ export interface BlogPost {
     category?: string;
     tags?: string[];
     coverImage?: string;
-    [key: string]: any;
+    devtoUrl?: string;
+    [key: string]: unknown;
   };
   content: string;
 }
@@ -23,7 +24,7 @@ export function getPostSlugs() {
   if (!fs.existsSync(postsDirectory)) {
     return [];
   }
-  return fs.readdirSync(postsDirectory);
+  return fs.readdirSync(postsDirectory).filter((file) => file.endsWith('.mdx'));
 }
 
 export function getPostBySlug(slug: string): BlogPost {

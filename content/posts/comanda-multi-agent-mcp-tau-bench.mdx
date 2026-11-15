@@ -1,0 +1,69 @@
+---
+title: "Como construir agentes de atendimento que não alucinam dinheiro: regras em código, guardrails MCP e avaliação τ-bench em português"
+date: "2026-11-15"
+description: "Arquitetura do Comanda: orquestração multi-agente sobre Claude Agent SDK e MCP com cálculo determinístico de reembolsos em código, guardrails antes das ferramentas e avaliação automatizada estilo τ-bench com 30 cenários."
+category: "AI Engineering & Multi-Agent Systems"
+tags: ["AI Agents", "MCP", "Python", "LLM Evaluation"]
+devtoUrl: "https://dev.to/theandr3/como-construir-agentes-de-atendimento-que-nao-alucinam-dinheiro-regras-em-codigo-guardrails-mcp-e-42kc"
+---
+
+Quando colocamos um LLM para atender clientes de um app de delivery, um chatbot comum resolve o caminho feliz, mas cria dois riscos inaceitáveis para a operação: **conceder reembolso indevido** sob pressão ou *prompt injection*, e **prometer valores ou prazos fora da política**.
+
+Construí o **[Comanda](https://github.com/TheAndr3/comanda)** — um sistema multi-agente de pós-venda de delivery sobre o Claude Agent SDK e o Model Context Protocol (MCP) — partindo de um princípio simples: **o modelo conduz a conversa, mas o dinheiro e a segurança vivem em código determinístico**.
+
+Neste artigo, mostro as quatro decisões de engenharia que tornaram o sistema auditável e como uma suíte de avaliação estilo **τ-bench** (30 cenários, 8 adversariais) encontrou um bug sutil de fuso/relógio que nenhum teste manual havia pego.
+
+---
+
+## 1. A ferramenta de reembolso não aceita valor (`ADR-0001`)
+
+Em muitos protótipos de agentes, a ferramenta tem a assinatura `issue_refund(order_id, amount)`. Se o cliente convencer o modelo de que merece R$ 150,00 em vez da taxa de entrega de R$ 6,99, o modelo passa `150.00`.
+
+No Comanda, `issue_refund` recebe apenas `(order_id, issue, item_ids)`. Não existe parâmetro de valor:
+
+- Quem calcula os centavos é uma função pura (`evaluate_refund`), que lê o pedido no SQLite, mede o atraso contra o `ETA`, confere a janela de 48 horas após a entrega e aplica a regra (`R-ITEM`, `R-QUALITY`, `R-LATE-30`, `R-LATE-60`, `R-CANCELLED`, `R-LOST`).
+- Se o valor passar de R$ 80,00 ou se o cliente tiver 3+ reembolsos nos últimos 30 dias, o reembolso nasce como `pending_approval` na **Fila** do atendente humano.
+- No banco, um trigger SQLite recusa qualquer `UPDATE` em `refunds.amount_cents`.
+
+---
+
+## 2. Isolamento de ferramentas por servidor MCP e 4 Guardrails (`ADR-0005` e `ADR-0018`)
+
+Em vez de dar todas as 8 ferramentas para um único agente, separamos a arquitetura em três papéis com servidores MCP distintos:
+
+- **Recepção (`claude-haiku-4-5`):** fala com o cliente e só enxerga `search_policy` e `escalate_to_human`, além de delegar para especialistas.
+- **Pedidos (`claude-sonnet-4-5`):** servidor MCP somente-leitura (`list_my_orders`, `get_order`, `get_delivery_status`).
+- **Reembolsos (`claude-sonnet-4-5`):** servidor MCP com `check_refund_eligibility` e `issue_refund`.
+
+Mesmo que um agente tente chamar uma ferramenta fora de ordem, o despachante executa quatro guardrails em código antes da ferramenta:
+
+1. `agent_tools`: bloqueia ferramentas fora da lista daquele agente;
+2. `session_customer`: injeta o `customer_id` autenticado da sessão e recusa pedidos de outros clientes;
+3. `eligibility_check`: bloqueia `issue_refund` se `check_refund_eligibility` não tiver retornado `eligible=True` para o mesmo pedido na sessão;
+4. `refund_Idempotency`: impede reembolso duplicado para o mesmo pedido.
+
+---
+
+## 3. Avaliação estilo τ-bench e o bug do relógio fixo (`ADR-0027`)
+
+Construímos 30 cenários inspirados no **τ-bench** (Yao et al., 2024), combinando um **Cliente simulado** e um **Juiz LLM**, rodando sobre um banco SQLite determinístico cujo relógio é fixado em **`05/11/2026 19:30 BRT`**.
+
+Um cenário só passa se:
+
+1. O estado final do SQLite bater por código com os reembolsos e tickets esperados; e
+2. O Juiz não encontrar nenhuma violação grave na conversa (com verificação em código de que o trecho citado em `evidence` existe literalmente na fala do agente).
+
+Na primeira rodada completa (50 atendimentos), o sistema teve **0 violações graves e 0 leves**, conteve **7 dos 8 cenários adversariais** e custou **US$ 0,026 por atendimento** (estimativa equivalente em API). Mas 9 cenários reprovaram por falta de reembolso no estado final.
+
+Ao abrir os arquivos JSONL do **Rastro**, descobri a causa principal: o banco vivia em `05/11/2026`, mas o runtime do Claude Code injetava no bloco `env` do modelo a data real da máquina (`15/11/2026`). Quando a Recepção lia um pedido entregue em `05/11/2026`, ela calculava mentalmente que haviam se passado 10 dias (fora da janela de 48h!) ou dizia ao cliente que o pedido *"não era de hoje"*, enquanto a ferramenta em Python usava `Repository.now()` (`05/11/2026`).
+
+A correção ([ADR-0027](https://github.com/TheAndr3/comanda/blob/main/docs/adr/0027-agents-receive-the-repository-clock-in-their-prompts.md)) foi passar `AgentHost.now()` explicitamente no prompt de todos os agentes, instruindo-os a usar o relógio do atendimento e ignorar qualquer data do ambiente. Sem o Rastro estruturado e a avaliação automatizada, esse conflito entre o relógio do domínio e o ambiente do SDK passaria despercebido.
+
+---
+
+## Links do projeto
+
+- **Replay Público Interativo (Vercel):** [comanda-blond.vercel.app](https://comanda-blond.vercel.app)
+- **Repositório, 29 ADRs e código:** [github.com/TheAndr3/comanda](https://github.com/TheAndr3/comanda)
+- **Benchmark e Rastros no Hugging Face:** [huggingface.co/datasets/TheAndr3/comanda-delivery-support-eval-ptbr](https://huggingface.co/datasets/TheAndr3/comanda-delivery-support-eval-ptbr)
+- **Artigo no Dev.to:** [dev.to/theandr3](https://dev.to/theandr3/como-construir-agentes-de-atendimento-que-nao-alucinam-dinheiro-regras-em-codigo-guardrails-mcp-e-42kc)
